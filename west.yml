@@ -1,0 +1,82 @@
+# The west manifest file (west.yml) for CSSE4011
+#
+# This manifest file was based loosely on the Nordic Connect SDK configuration
+# file in [1].
+#
+# For more details on the west and this manifest file refer to [2].
+#
+# [1]:https://github.com/nrfconnect/sdk-nrf/blob/main/west.yml
+# [2]:https://docs.zephyrproject.org/latest/develop/west/index.html
+manifest:
+  # "remotes" is a list of locations where git repositories are cloned
+  # and fetched from.
+  remotes:
+    # UQ Embedded Systems GitHub organisation where our code is hosted
+    - name: uqembeddedsys
+      url-base: https://github.com/skwort
+    # Third-party repository sources:
+    - name: zephyrproject
+      url-base: https://github.com/zephyrproject-rtos
+
+  # set the default remote to uqembeddedsys
+  defaults:
+    remote: uqembeddedsys
+
+  # "projects" is a list of git repositories which make up the SDK
+  projects:
+    - name: zephyr
+      remote: zephyrproject      
+      repo-path: zephyr
+      revision: v4.2.0
+      clone-depth: 1
+      import:
+        # In addition to the zephyr repository itself, we also
+        # imports the contents of zephyr/west.yml at the above
+        # revision. Only the projects explicitly named in the
+        # following allowlist are imported.
+        #
+        # Note that the zephyr west extensions (like 'build', 'flash',
+        # 'debug', etc.) are automatically provided by this import, so
+        # there's no need to add a redundant west-commands: key for
+        # the zephyr project.
+        #
+        # Please keep this list sorted alphabetically.
+        name-allowlist:
+          - canopennode
+          - chre
+          - cmsis
+          - cmsis-dsp
+          - cmsis-nn
+          - cmsis_6
+          - edtt
+          - fatfs
+          - hal_nordic
+          - hal_st # required for ST sensors (unrelated to STM32 MCUs)
+          - hal_tdk # required for Invensense sensors such as ICM42670
+          - hal_wurthelektronik
+          - hostap
+          - liblc3
+          - libmetal
+          - littlefs
+          - loramac-node
+          - lvgl
+          - lz4
+          - mipi-sys-t
+          - nanopb
+          - net-tools
+          - nrf_hw_models
+          - nrf_wifi
+          - open-amp
+          - percepio
+          - picolibc
+          - segger
+          - tf-m-tests
+          - tinycrypt
+          - uoscore-uedhoc
+          - zcbor
+          - zscilib
+
+  # West-related configuration for the the SDK.
+  self:
+    # This repository should be cloned to app_root/csse4011-sdk.
+    path: csse4011-sdk 
