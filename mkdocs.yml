@@ -1,0 +1,41 @@
+site_name: CSSE4011 SDK Docs
+repo_url: https://github.com/skwort/csse4011-sdk
+repo_name: csse4011-sdk
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - content.code.annotate
+    - content.code.copy
+  palette:
+    - primary: deep purple
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  font:
+
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: '#'
+
+plugins:
+  - search:
+      lang: en
+
+nav:
+  - Home: index.md
+  - Pracs:
+    - Overview: pracs/index.md
+  - Samples:
+    - Overview: samples/index.md
+  - Reference:
+    - Overview: reference/index.md
+    - Recommend Readings: reference/readings.md
