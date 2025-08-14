@@ -1,0 +1,6 @@
+sample:
+  name: I2C Slave Sample
+tests:
+  sample.i2c_slave:
+    platform_allow: native_sim
+    timeout: 5
