@@ -1,0 +1,35 @@
+name: Deploy MkDocs
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs mkdocs-material
+
+      - name: Build site
+        run: |
+          mkdocs build
+
+      - name: Deploy to server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.CSSE4011_DEPLOY_HOST }}
+          username: ${{ secrets.CSSE4011_DEPLOY_USER }}
+          key: ${{ secrets.CSSE4011_DEPLOY_SSH_KEY }}
+          source: site/
+          target: /var/www/csse4011-staging
