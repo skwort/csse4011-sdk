@@ -1,0 +1,14 @@
+# editors
+*.swp
+*~
+
+# python
+.venv
+__pycache__/
+
+# build
+build*
+/twister-out*
+
+# clangd
+.cache
