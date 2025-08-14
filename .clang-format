@@ -28,7 +28,7 @@ AttributeMacros:
   - __subsystem
 BitFieldColonSpacing: After
 BreakBeforeBraces: Linux
-ColumnLimit: 100
+ColumnLimit: 80
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 ForEachMacros:
