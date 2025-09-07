@@ -25,7 +25,7 @@ manifest:
   # "projects" is a list of git repositories which make up the SDK
   projects:
     - name: zephyr
-      remote: zephyrproject      
+      remote: zephyrproject
       repo-path: zephyr
       revision: v4.2.0
       clone-depth: 1
@@ -61,6 +61,7 @@ manifest:
           - loramac-node
           - lvgl
           - lz4
+          - mbedtls
           - mipi-sys-t
           - nanopb
           - net-tools
@@ -79,4 +80,4 @@ manifest:
   # West-related configuration for the the SDK.
   self:
     # This repository should be cloned to app_root/csse4011-sdk.
-    path: csse4011-sdk 
+    path: csse4011-sdk
