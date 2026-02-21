@@ -27,7 +27,7 @@ manifest:
     - name: zephyr
       remote: zephyrproject
       repo-path: zephyr
-      revision: v4.2.0
+      revision: v4.3.0
       clone-depth: 1
       import:
         # In addition to the zephyr repository itself, we also
