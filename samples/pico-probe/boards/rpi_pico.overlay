@@ -1,0 +1,93 @@
+/*
+ * Copyright (c) 2025 Sam Kwort
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ *
+ * Pin mapping:
+ *
+ *   GP1  nRESET   Target reset (active low)
+ *   GP2  SWCLK    SWD clock to target
+ *   GP3  SWDIO    SWD data (bidirectional, pull-up)
+ *   GP4  UART TX  UART1 TX -> target RX
+ *   GP5  UART RX  UART1 RX <- target TX
+ */
+
+#include <dt-bindings/pinctrl/rpi-pico-rp2040-pinctrl.h>
+
+/ {
+	chosen {
+		/* Route console/shell output over USB CDC-ACM instead of HW UART */
+		zephyr,console = &cdc_acm_uart0;
+		zephyr,shell-uart = &cdc_acm_uart0;
+	};
+
+	/*
+	 * UART bridge: forwards bytes between USB CDC-ACM #1 and
+	 * physical UART1 (GP4 TX, GP5 RX). The zephyr,uart-bridge
+	 * driver handles this entirely -- no application code needed.
+	 */
+	uart-bridge0 {
+		compatible = "zephyr,uart-bridge";
+		peers = <&cdc_acm_uart1 &uart1>;
+	};
+
+	/*
+	 * SWD debug port: bit-banged GPIO implementation of the
+	 * CMSIS-DAP SWD interface. The DAP subsystem drives these
+	 * pins to read/write target memory, set breakpoints, etc.
+	 */
+	dp0 {
+		compatible = "zephyr,swdp-gpio";
+		status = "okay";
+		clk-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;	/* GP2 = SWCLK */
+		dio-gpios = <&gpio0 3 GPIO_PULL_UP>;		/* GP3 = SWDIO */
+		reset-gpios = <&gpio0 1 GPIO_ACTIVE_LOW>;	/* GP1 = nRESET */
+		port-write-cycles = <1>;
+	};
+};
+
+/*
+ * Disable i2c0 -- the default rpi_pico board maps it to GP4/GP5,
+ * which conflicts with UART1. We don't need I2C on a debug probe.
+ */
+&i2c0 {
+	status = "disabled";
+};
+
+/*
+ * UART1 pinctrl: assign TX to GP4, RX to GP5.
+ * Follows the pattern from the rpi_debug_probe board definition.
+ */
+&pinctrl {
+	uart1_default: uart1_default {
+		group1 {
+			pinmux = <UART1_TX_P4>;
+		};
+		group2 {
+			pinmux = <UART1_RX_P5>;
+			input-enable;
+		};
+	};
+};
+
+/* Enable UART1 at 115200 baud for the UART bridge */
+&uart1 {
+	current-speed = <115200>;
+	status = "okay";
+	pinctrl-0 = <&uart1_default>;
+	pinctrl-names = "default";
+};
+
+/* USB CDC-ACM instances under the USB device controller */
+&zephyr_udc0 {
+	/* CDC-ACM0: probe firmware console/logs */
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
+
+	/* CDC-ACM1: UART bridge to target (paired with uart1 above) */
+	cdc_acm_uart1: cdc_acm_uart1 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
+};

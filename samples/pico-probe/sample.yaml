@@ -1,0 +1,6 @@
+sample:
+  name: Pico Probe CMSIS-DAP
+
+tests:
+  app.default:
+    build_only: true
