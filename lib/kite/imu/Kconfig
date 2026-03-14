@@ -1,0 +1,8 @@
+config CSSE4011_SHELL_IMU
+	bool "Kite IMU commands"
+	default y
+	select SENSOR
+	select LSM6DSL
+	help
+	  Enable kite imu subcommands for reading the onboard
+	  LSM6DS3TR-C accelerometer and gyroscope.
