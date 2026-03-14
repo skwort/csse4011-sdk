@@ -1,0 +1,7 @@
+config CSSE4011_SHELL_PWM
+	bool "Kite PWM commands"
+	default y
+	select PWM
+	help
+	  Enable kite pwm subcommands for PWM output control,
+	  including RGB LED brightness via PWM.

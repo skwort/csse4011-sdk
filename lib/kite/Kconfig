@@ -12,5 +12,6 @@ if CSSE4011_SHELL
 
 rsource "led/Kconfig"
 rsource "gpio/Kconfig"
+rsource "pwm/Kconfig"
 
 endif # CSSE4011_SHELL
