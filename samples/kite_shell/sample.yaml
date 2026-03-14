@@ -1,0 +1,6 @@
+sample:
+  name: Kite Shell
+  description: CSSE4011 kite shell commands demo
+tests:
+  sample.kite_shell:
+    platform_allow: xiao_ble/nrf52840/sense

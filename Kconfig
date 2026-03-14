@@ -1,0 +1,12 @@
+# CSSE4011 SDK configuration
+
+menuconfig CSSE4011
+	bool "CSSE4011 SDK"
+	help
+	  Enable CSSE4011 SDK features.
+
+if CSSE4011
+
+rsource "lib/kite/Kconfig"
+
+endif # CSSE4011

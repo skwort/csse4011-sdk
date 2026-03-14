@@ -1,0 +1,15 @@
+# CSSE4011 Kite Shell configuration
+
+menuconfig CSSE4011_SHELL
+	bool "CSSE4011 Kite Shell Commands"
+	depends on SHELL
+	help
+	  Enable the 'kite' shell command set for the XIAO BLE board.
+	  Provides board-specific commands for peripherals including
+	  GPIO, ADC, I2C, UART, LED, and PWM.
+
+if CSSE4011_SHELL
+
+rsource "led/Kconfig"
+
+endif # CSSE4011_SHELL
