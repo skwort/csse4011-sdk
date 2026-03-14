@@ -1,0 +1,7 @@
+config CSSE4011_SHELL_ADC
+	bool "Kite ADC commands"
+	default y
+	select ADC
+	help
+	  Enable kite adc subcommands for reading analog inputs
+	  on the XIAO connector pins D0-D5 via the nRF SAADC.
