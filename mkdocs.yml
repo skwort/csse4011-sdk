@@ -25,6 +25,10 @@ markdown_extensions:
   - admonition
   - toc:
       permalink: '#'
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
 
 plugins:
   - search:
@@ -32,6 +36,16 @@ plugins:
 
 nav:
   - Home: index.md
+  - Kite Shell:
+    - Overview: kite/index.md
+    - LED: kite/led.md
+    - GPIO: kite/gpio.md
+    - PWM: kite/pwm.md
+    - UART: kite/uart.md
+    - I2C: kite/i2c.md
+    - ADC: kite/adc.md
+    - IMU: kite/imu.md
+    - BLE: kite/ble.md
   - Pracs:
     - Overview: pracs/index.md
   - Samples:
