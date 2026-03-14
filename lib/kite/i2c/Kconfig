@@ -1,0 +1,7 @@
+config CSSE4011_SHELL_I2C
+	bool "Kite I2C commands"
+	default y
+	select I2C
+	help
+	  Enable kite i2c subcommands for scanning and communicating
+	  with I2C devices on the XIAO connector (D4=SDA, D5=SCL).

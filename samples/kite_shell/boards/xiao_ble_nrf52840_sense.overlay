@@ -13,6 +13,7 @@
 		xiao-d10 = &xiao_d10;
 		kite-pwm = &pwm1;
 		kite-uart = &uart0;
+		kite-i2c = &xiao_i2c;
 	};
 
 	xiao_gpio_pins {

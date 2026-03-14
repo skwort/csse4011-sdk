@@ -14,5 +14,6 @@ rsource "led/Kconfig"
 rsource "gpio/Kconfig"
 rsource "pwm/Kconfig"
 rsource "uart/Kconfig"
+rsource "i2c/Kconfig"
 
 endif # CSSE4011_SHELL
