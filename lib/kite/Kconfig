@@ -11,5 +11,6 @@ menuconfig CSSE4011_SHELL
 if CSSE4011_SHELL
 
 rsource "led/Kconfig"
+rsource "gpio/Kconfig"
 
 endif # CSSE4011_SHELL

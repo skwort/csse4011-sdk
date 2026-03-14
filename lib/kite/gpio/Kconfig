@@ -1,0 +1,8 @@
+config CSSE4011_SHELL_GPIO
+	bool "Kite GPIO commands"
+	default y
+	depends on GPIO
+	select GPIO_GET_DIRECTION
+	help
+	  Enable kite gpio subcommands for controlling the XIAO
+	  connector pins D0-D10.
