@@ -1,0 +1,23 @@
+config CSSE4011_SHELL_UART
+	bool "Kite UART commands"
+	default y
+	select SERIAL
+
+if CSSE4011_SHELL_UART
+
+choice CSSE4011_SHELL_UART_API
+	prompt "UART shell API mode"
+	default CSSE4011_SHELL_UART_IRQ
+
+config CSSE4011_SHELL_UART_IRQ
+	bool "Interrupt-driven API"
+	select UART_INTERRUPT_DRIVEN
+
+config CSSE4011_SHELL_UART_ASYNC
+	bool "Async/DMA API"
+	depends on SERIAL_SUPPORT_ASYNC
+	select UART_ASYNC_API
+
+endchoice
+
+endif # CSSE4011_SHELL_UART

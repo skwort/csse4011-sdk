@@ -1,0 +1,3 @@
+zephyr_library_sources(kite_uart.c)
+zephyr_library_sources_ifdef(CONFIG_CSSE4011_SHELL_UART_IRQ kite_uart_irq.c)
+zephyr_library_sources_ifdef(CONFIG_CSSE4011_SHELL_UART_ASYNC kite_uart_async.c)
