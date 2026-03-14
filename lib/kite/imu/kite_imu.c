@@ -14,8 +14,12 @@ static const struct device *imu_dev = DEVICE_DT_GET(DT_NODELABEL(lsm6ds3tr_c));
 static void print_sensor_val(const struct shell *sh, const char *label,
                              struct sensor_value *val)
 {
-    shell_print(sh, "  %s: %d.%06d", label, val->val1,
-                val->val2 < 0 ? -val->val2 : val->val2);
+    bool neg = (val->val1 < 0) || (val->val2 < 0);
+    int32_t abs_val1 = val->val1 < 0 ? -val->val1 : val->val1;
+    int32_t abs_val2 = val->val2 < 0 ? -val->val2 : val->val2;
+
+    shell_print(sh, "  %s: %s%d.%06d", label, neg ? "-" : "", abs_val1,
+                abs_val2);
 }
 
 /* kite imu read */
