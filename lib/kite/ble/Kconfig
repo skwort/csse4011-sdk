@@ -1,0 +1,9 @@
+config CSSE4011_SHELL_BLE
+	bool "Kite BLE commands"
+	default y
+	depends on BT
+	depends on BT_BROADCASTER
+	help
+	  Enable kite ble subcommands for non-connectable
+	  BLE beacon advertising with configurable device
+	  name and manufacturer data.

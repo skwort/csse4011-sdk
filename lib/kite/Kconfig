@@ -17,5 +17,6 @@ rsource "uart/Kconfig"
 rsource "i2c/Kconfig"
 rsource "adc/Kconfig"
 rsource "imu/Kconfig"
+rsource "ble/Kconfig"
 
 endif # CSSE4011_SHELL
