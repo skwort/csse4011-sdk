@@ -177,7 +177,7 @@ static int cmd_gpio_set(const struct shell *sh, size_t argc, char **argv)
     }
 
     int ret;
-    unsigned long val = shell_strtoul(argv[2], 0, &ret);
+    uint32_t val = shell_strtoul(argv[2], 0, &ret);
 
     if (ret < 0) {
         shell_error(sh, "Invalid value");
@@ -190,7 +190,7 @@ static int cmd_gpio_set(const struct shell *sh, size_t argc, char **argv)
         return ret;
     }
 
-    shell_print(sh, "D%d = %lu", idx, val);
+    shell_print(sh, "D%d = %u", idx, val);
     return 0;
 }
 

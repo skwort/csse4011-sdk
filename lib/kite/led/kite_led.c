@@ -89,21 +89,21 @@ static int cmd_led_set(const struct shell *sh, size_t argc, char **argv)
         initialised = true;
     }
 
-    unsigned long r = shell_strtoul(argv[1], 0, &ret);
+    uint32_t r = shell_strtoul(argv[1], 0, &ret);
 
     if (ret < 0) {
         shell_error(sh, "Invalid red value");
         return ret;
     }
 
-    unsigned long g = shell_strtoul(argv[2], 0, &ret);
+    uint32_t g = shell_strtoul(argv[2], 0, &ret);
 
     if (ret < 0) {
         shell_error(sh, "Invalid green value");
         return ret;
     }
 
-    unsigned long b = shell_strtoul(argv[3], 0, &ret);
+    uint32_t b = shell_strtoul(argv[3], 0, &ret);
 
     if (ret < 0) {
         shell_error(sh, "Invalid blue value");
@@ -114,7 +114,7 @@ static int cmd_led_set(const struct shell *sh, size_t argc, char **argv)
     gpio_pin_set_dt(&led_g, g != 0);
     gpio_pin_set_dt(&led_b, b != 0);
 
-    shell_print(sh, "LED: R=%lu G=%lu B=%lu", r, g, b);
+    shell_print(sh, "LED: R=%u G=%u B=%u", r, g, b);
     return 0;
 }
 
@@ -148,7 +148,7 @@ static int cmd_led_blink(const struct shell *sh, size_t argc, char **argv)
         return -EINVAL;
     }
 
-    unsigned long period = shell_strtoul(argv[2], 0, &ret);
+    uint32_t period = shell_strtoul(argv[2], 0, &ret);
 
     if (ret < 0 || period == 0) {
         shell_error(sh, "Invalid period (must be > 0 ms)");
@@ -175,7 +175,7 @@ static int cmd_led_blink(const struct shell *sh, size_t argc, char **argv)
 
     k_work_reschedule(&blink_work, K_NO_WAIT);
 
-    shell_print(sh, "Blinking %s at %lu ms", argv[1], period);
+    shell_print(sh, "Blinking %s at %u ms", argv[1], period);
     return 0;
 }
 

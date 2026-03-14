@@ -1,7 +1,7 @@
 config CSSE4011_SHELL_LED
 	bool "Kite LED commands"
 	default y
-	depends on GPIO
+	select GPIO
 	help
 	  Enable kite led subcommands for controlling the onboard
 	  RGB LED on the XIAO BLE board.
