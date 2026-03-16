@@ -61,8 +61,7 @@ kite_pwm_leds {
 
 Three things to notice:
 
-1. **`PWM_MSEC(20)`** -- the period is 20 ms (50 Hz), which is fast enough to
-   appear flicker-free to the human eye.
+1. **`PWM_MSEC(20)`** -- the period is 20 ms (50 Hz).
 2. **`PWM_POLARITY_INVERTED`** -- the XIAO BLE's RGB LED is common-anode,
    meaning the LED is *on* when the pin is driven *low*. Inverted polarity
    tells the PWM driver to flip the signal.

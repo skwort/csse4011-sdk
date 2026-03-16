@@ -117,24 +117,24 @@ fills a 64-byte buffer as data arrives:
 
 ```c
 static uint8_t rx_buf[RX_BUF_SIZE];
-static volatile uint32_t rx_len; // (1)!
+static atomic_t rx_len; // (1)!
 
 static void uart_irq_handler(const struct device *dev, void *user_data)
 {
     while (uart_irq_update(dev) && uart_irq_is_pending(dev)) {
         if (uart_irq_rx_ready(dev)) {
-            uint32_t pos = rx_len;
+            uint32_t pos = atomic_get(&rx_len);
             int n = uart_fifo_read(dev, &rx_buf[pos], RX_BUF_SIZE - pos); // (2)!
 
             if (n > 0) {
-                rx_len = pos + n;
+                atomic_set(&rx_len, pos + n);
             }
         }
     }
 }
 ```
 
-1. `volatile` because `rx_len` is written from interrupt context and read
+1. `atomic_t` because `rx_len` is written from interrupt context and read
    from the shell thread.
 2. `uart_fifo_read` reads whatever bytes are available in the hardware FIFO
    into our buffer starting at `pos`. It returns the number of bytes
@@ -145,7 +145,7 @@ accumulated data is printed:
 
 ```c
 uart_irq_rx_disable(kite_uart_dev);
-uint32_t n = rx_len;
+uint32_t n = atomic_get(&rx_len);
 print_rx_data(sh, rx_buf, n);
 ```
 
