@@ -59,21 +59,15 @@ static uint8_t mfr_buf[2 + MAX_USER_MFR_LEN] = {MFR_COMPANY_ID_LO,
                                                  MFR_COMPANY_ID_HI}; // (1)!
 static uint8_t mfr_len = 2;
 
-static int build_ad(struct bt_data *ad, size_t *ad_len)
+static void build_ad(struct bt_data ad[2])
 {
-    *ad_len = 0;
+    ad[0].type = BT_DATA_NAME_COMPLETE; // (2)!
+    ad[0].data = dev_name;
+    ad[0].data_len = strlen(dev_name);
 
-    ad[*ad_len].type = BT_DATA_NAME_COMPLETE; // (2)!
-    ad[*ad_len].data = dev_name;
-    ad[*ad_len].data_len = strlen(dev_name);
-    (*ad_len)++;
-
-    ad[*ad_len].type = BT_DATA_MANUFACTURER_DATA; // (3)!
-    ad[*ad_len].data = mfr_buf;
-    ad[*ad_len].data_len = mfr_len;
-    (*ad_len)++;
-
-    return 0;
+    ad[1].type = BT_DATA_MANUFACTURER_DATA; // (3)!
+    ad[1].data = mfr_buf;
+    ad[1].data_len = mfr_len;
 }
 ```
 
@@ -120,11 +114,10 @@ static int ensure_bt_ready(const struct shell *sh)
 
 ```c
 struct bt_data ad[2];
-size_t ad_len;
 
-build_ad(ad, &ad_len);
+build_ad(ad);
 
-ret = bt_le_adv_start(BT_LE_ADV_NCONN, ad, ad_len, NULL, 0); // (1)!
+ret = bt_le_adv_start(BT_LE_ADV_NCONN, ad, ARRAY_SIZE(ad), NULL, 0); // (1)!
 ```
 
 1. `BT_LE_ADV_NCONN` configures non-connectable, non-scannable advertising.
@@ -138,20 +131,21 @@ The `data` command can update the manufacturer payload while advertising is
 active:
 
 ```c
+uint8_t *payload = &mfr_buf[2];
+
 for (uint32_t i = 0; i < num_bytes; i++) {
-    uint32_t val = shell_strtoul(argv[1 + i], 16, &ret);
+    uint32_t val = shell_strtoul(argv[i + 1], 16, &ret);
     ...
-    mfr_buf[2 + i] = (uint8_t)val; // (1)!
+    payload[i] = (uint8_t)val; // (1)!
 }
 mfr_len = 2 + num_bytes;
 
 if (advertising) {
     struct bt_data ad[2];
-    size_t ad_len;
 
-    build_ad(ad, &ad_len);
+    build_ad(ad);
 
-    ret = bt_le_adv_update_data(ad, ad_len, NULL, 0); // (2)!
+    ret = bt_le_adv_update_data(ad, ARRAY_SIZE(ad), NULL, 0); // (2)!
     ...
 }
 ```
