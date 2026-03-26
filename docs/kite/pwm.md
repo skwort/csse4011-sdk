@@ -102,12 +102,13 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 The `led` command maps a 0-255 user value to the PWM duty cycle:
 
 ```c
-uint32_t duty_r = (pwm_red.period * r) / 255;
+uint32_t duty_r = ((uint64_t)pwm_red.period * r) / 255;
 ```
 
-`pwm_red.period` comes from the device tree spec (20 ms in nanoseconds). When
-`r = 255`, the duty cycle equals the full period (LED fully on). When `r = 0`,
-the duty is zero (LED fully off). Because the polarity is inverted in the
+`pwm_red.period` comes from the device tree spec (20 ms in nanoseconds). The
+cast to `uint64_t` prevents overflow -- the period is 20,000,000 ns, and
+`20000000 * 255` exceeds `UINT32_MAX`. When `r = 255`, the duty cycle equals
+the full period (LED fully on). When `r = 0`, the duty is zero (LED fully off). Because the polarity is inverted in the
 device tree, the PWM driver handles the inversion transparently --
 `pwm_set_pulse_dt` sends the correct inverted waveform without the C code
 needing to know about common-anode wiring.

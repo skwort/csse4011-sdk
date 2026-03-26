@@ -133,9 +133,9 @@ static int cmd_pwm_led(const struct shell *sh, size_t argc, char **argv)
     }
 
     /* Scale 0-255 to 0-period for duty cycle */
-    uint32_t duty_r = (pwm_red.period * r) / 255;
-    uint32_t duty_g = (pwm_green.period * g) / 255;
-    uint32_t duty_b = (pwm_blue.period * b) / 255;
+    uint32_t duty_r = ((uint64_t)pwm_red.period * r) / 255;
+    uint32_t duty_g = ((uint64_t)pwm_green.period * g) / 255;
+    uint32_t duty_b = ((uint64_t)pwm_blue.period * b) / 255;
 
     ret = pwm_set_pulse_dt(&pwm_red, duty_r);
     if (ret < 0) {
