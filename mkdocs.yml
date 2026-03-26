@@ -50,6 +50,7 @@ nav:
     - Overview: pracs/index.md
   - Samples:
     - Overview: samples/index.md
+    - SMF Traffic Light: samples/smf.md
   - Reference:
     - Overview: reference/index.md
     - Recommend Readings: reference/readings.md

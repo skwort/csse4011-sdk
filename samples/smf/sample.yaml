@@ -1,0 +1,6 @@
+sample:
+  name: SMF Traffic Light
+  description: State machine framework demo using an RGB LED as a traffic light
+tests:
+  sample.smf_traffic_light:
+    platform_allow: xiao_ble/nrf52840/sense
