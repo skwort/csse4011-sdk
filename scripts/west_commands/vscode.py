@@ -78,7 +78,7 @@ settings = {
     "devicetree.defaultZephyrBindings": ["zephyr/dts/bindings"],
     "[kconfig]": {
         "editor.insertSpaces": False,
-        "editor.tabSize": 4,
+        "editor.tabSize": 8,
         "editor.indentSize": "tabSize",
     },
     "[jinja]": {"editor.formatOnSave": False},
@@ -89,6 +89,7 @@ recommended_extensions = {
     "recommendations": [
         "ms-vscode.cpptools",
         "ms-vscode.cmake-tools",
+        "EditorConfig.EditorConfig",
         "charliermarsh.ruff",
         "marus25.cortex-debug",
         "KyleMicallefBonnici.dts-lsp",
