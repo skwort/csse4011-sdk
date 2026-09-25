@@ -12,8 +12,10 @@ import yaml
 
 try:
     from simple_term_menu import TerminalMenu
-except NotImplementedError:
-    pass
+except (ImportError, NotImplementedError):
+    # Interactive J-Link selection is optional. When unavailable, users can
+    # select a probe explicitly with --snr.
+    TerminalMenu = None
 
 import zcmake
 from west import log
