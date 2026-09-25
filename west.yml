@@ -83,3 +83,4 @@ manifest:
   self:
     # This repository should be cloned to app_root/csse4011-sdk.
     path: csse4011-sdk
+    west-commands: scripts/west-commands.yml
