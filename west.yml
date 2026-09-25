@@ -27,7 +27,7 @@ manifest:
     - name: zephyr
       remote: zephyrproject
       repo-path: zephyr
-      revision: v4.3.0
+      revision: v4.4.0
       clone-depth: 1
       import:
         # In addition to the zephyr repository itself, we also
@@ -55,6 +55,7 @@ manifest:
           - hal_st # required for ST sensors (unrelated to STM32 MCUs)
           - hal_stm32
           - hal_tdk # required for Invensense sensors such as ICM42670
+          - hal_espressif # required for ESP32
           - hal_wurthelektronik
           - hostap
           - liblc3
